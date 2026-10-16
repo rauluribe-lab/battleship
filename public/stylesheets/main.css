@@ -13,7 +13,7 @@
   --spx-surface: rgba(255, 255, 255, 0.055);
   --spx-surface-strong: rgba(255, 255, 255, 0.08);
   --spx-line: rgba(255, 255, 255, 0.12);
-  --cell: clamp(22px, calc((100vw - 124px) / 11), 48px);
+  --cell: clamp(22px, calc((100vw - 124px) / 11), 60px);
 }
 
 * {
@@ -41,9 +41,58 @@ body {
 /* ---------- Layout ---------- */
 
 .page {
-  max-width: 1080px;
+  position: relative;
+  max-width: 1350px;
   margin: 0 auto;
   padding: clamp(24px, 4vw, 56px) 16px 48px;
+}
+
+/* ---------- Language switch ---------- */
+
+.lang-switch {
+  position: absolute;
+  top: clamp(16px, 3vw, 32px);
+  right: 16px;
+  z-index: 1;
+}
+
+.lang-switch select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 40px 10px 18px;
+  font: 600 0.85rem 'Albert Sans', sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--spx-text);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ffc24d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center,
+    var(--spx-surface-strong);
+  border: 1px solid var(--spx-line);
+  border-radius: 999px;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lang-switch select:hover,
+.lang-switch select:focus {
+  border-color: var(--spx-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 194, 77, 0.18);
+}
+
+.lang-switch option {
+  color: var(--spx-text);
+  background: var(--spx-deep);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .header {
@@ -94,12 +143,12 @@ body {
 
 .game {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-columns: minmax(0, 1fr) 375px;
   gap: 24px;
   align-items: start;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1125px) {
   .game {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -196,7 +245,7 @@ button:active {
 }
 
 #container:empty::before {
-  content: "Pulsa “New game” para desplegar la flota";
+  content: attr(data-empty);
   display: block;
   padding: 64px 16px;
   font-family: 'Oswald', sans-serif;
@@ -422,6 +471,28 @@ button:active {
 .swatch.cruiser { background: var(--spx-pink); }
 .swatch.destroyer { background: var(--spx-orange); }
 
+.fleet {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+  margin-bottom: 24px;
+  padding-top: clamp(14px, 1.8vw, 20px);
+  padding-bottom: clamp(14px, 1.8vw, 20px);
+}
+
+.fleet .card__label {
+  margin: 0;
+}
+
+.fleet .legend {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 24px;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -437,4 +508,67 @@ button:active {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Funds chart ---------- */
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart__grid {
+  stroke: var(--spx-line);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.chart__axis {
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: none;
+}
+
+.chart__tick {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  fill: var(--spx-muted);
+}
+
+.chart__budget {
+  stroke: var(--spx-yellow);
+  stroke-width: 2;
+}
+
+.chart__budget-label {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  fill: var(--spx-yellow);
+}
+
+.chart__line {
+  fill: none;
+  stroke: url(#spxLine);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.chart__dot {
+  fill: var(--spx-text);
+  stroke: var(--spx-bg);
+  stroke-width: 1.5;
+}
+
+.chart__dot--below {
+  fill: var(--spx-coral);
+}
+
+.chart__dot--last {
+  filter: drop-shadow(0 0 4px rgba(255, 194, 77, 0.9));
 }

@@ -17,10 +17,12 @@
 		<script type="text/javascript" src="javascripts/ext/backbone.js"></script>
 		<script type="text/javascript" src="javascripts/ext/icanhaz.js"></script>
 
+		<script type="text/javascript" src="javascripts/app/I18n.js"></script>
 		<script type="text/javascript" src="javascripts/app/Boat.js"></script>
 		<script type="text/javascript" src="javascripts/app/Cell.js"></script>
 		<script type="text/javascript" src="javascripts/app/Board.js"></script>
 		<script type="text/javascript" src="javascripts/app/Game.js"></script>
+		<script type="text/javascript" src="javascripts/app/FundsChart.js"></script>
 
 		<script type="text/javascript" src="javascripts/boot.js"></script>
 
@@ -33,40 +35,60 @@
 	</head>
 	<body>
 		<div class="page">
+			<div class="lang-switch">
+				<label for="langSelect" class="visually-hidden" data-i18n="language">Language</label>
+				<select id="langSelect">
+					<option value="en">English</option>
+					<option value="es">Español</option>
+					<option value="pt">Português</option>
+				</select>
+			</div>
+
 			<header class="header">
 				<img class="header__logo" src="images/simplexitylab-logo.png" alt="SimplexityLab" width="160" height="78">
-				<p class="kicker">Agile Battleship</p>
-				<h1 class="title">Battleship</h1>
+				<p class="kicker" data-i18n="kicker">Agile Battleship</p>
+				<h1 class="title" data-i18n="title">Battleship</h1>
 				<div class="title-bar"></div>
 			</header>
+
+			<section class="card fleet">
+				<p class="card__label" data-i18n="fleet">Fleet</p>
+				<ul class="legend">
+					<li><span class="swatch aircraft-carrier"></span><span data-i18n="aircraftCarrier">Aircraft carrier (5)</span></li>
+					<li><span class="swatch battleship"></span><span data-i18n="battleship">Battleship (4)</span></li>
+					<li><span class="swatch submarine"></span><span data-i18n="submarine">Submarine (3)</span></li>
+					<li><span class="swatch cruiser"></span><span data-i18n="cruiser">Cruiser (3)</span></li>
+					<li><span class="swatch destroyer"></span><span data-i18n="destroyer">Destroyer (2)</span></li>
+				</ul>
+			</section>
 
 			<main class="game">
 				<section class="card">
 					<div class="controls">
 						<div class="controls__field">
-							<label for="shotsPerIteration">Shots per iteration</label>
+							<label for="shotsPerIteration" data-i18n="shotsPerIteration">Shots per iteration</label>
 							<input id="shotsPerIteration" type="number" min="1" max="40" value="40"/>
 						</div>
-						<button id="newGame">New game</button>
+						<button id="newGame" data-i18n="newGame">New game</button>
 					</div>
 
-					<div id="container"></div>
+					<div id="container" data-i18n-attr="data-empty:emptyBoard" data-empty="Press “New game” to deploy the fleet"></div>
 				</section>
 
 				<aside class="sidebar">
 					<section class="card">
-						<p class="card__label">Scoreboard</p>
+						<p class="card__label" data-i18n="scoreboard">Scoreboard</p>
 						<table id="info">
 							<tr>
-								<td>Total shots remaining</td>
+								<td data-i18n="totalShotsRemaining">Total shots remaining</td>
 								<td id="totalShotsRemaining">&ndash;</td>
 							</tr>
 							<tr>
-								<td>Shots remaining for iteration</td>
+								<td data-i18n="shotsRemainingForIteration">Shots remaining for iteration</td>
 								<td id="shotsRemainingForIteration">&ndash;</td>
 							</tr>
 							<tr>
-								<td>Balance</td>
+								<td data-i18n="balance">Balance</td>
 								<td id="funds">&ndash;</td>
 							</tr>
 							<tr>
@@ -76,14 +98,8 @@
 					</section>
 
 					<section class="card">
-						<p class="card__label">Fleet</p>
-						<ul class="legend">
-							<li><span class="swatch aircraft-carrier"></span>Aircraft carrier (5)</li>
-							<li><span class="swatch battleship"></span>Battleship (4)</li>
-							<li><span class="swatch submarine"></span>Submarine (3)</li>
-							<li><span class="swatch cruiser"></span>Cruiser (3)</li>
-							<li><span class="swatch destroyer"></span>Destroyer (2)</li>
-						</ul>
+						<p class="card__label" data-i18n="chartTitle">Balance per shot</p>
+						<div id="fundsChart" class="chart"></div>
 					</section>
 				</aside>
 			</main>
