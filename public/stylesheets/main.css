@@ -1,70 +1,440 @@
-body {
-  font-family: sans-serif;
+/* SimplexityLab theme — palette and type from simplexitylab.com */
+:root {
+  --spx-bg: #12082a;
+  --spx-deep: #0e061e;
+  --spx-yellow: #ffc24d;
+  --spx-orange: #ff9a3d;
+  --spx-coral: #ff6b6b;
+  --spx-pink: #ff4d8d;
+  --spx-purple: #a855f7;
+  --spx-gradient: linear-gradient(90deg, #ffc24d 0%, #ff6b6b 45%, #a855f7 100%);
+  --spx-text: #ffffff;
+  --spx-muted: rgba(255, 255, 255, 0.62);
+  --spx-surface: rgba(255, 255, 255, 0.055);
+  --spx-surface-strong: rgba(255, 255, 255, 0.08);
+  --spx-line: rgba(255, 255, 255, 0.12);
+  --cell: clamp(22px, calc((100vw - 124px) / 11), 48px);
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--spx-deep);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Albert Sans', sans-serif;
+  color: var(--spx-text);
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(255, 194, 77, 0.14) 0%, transparent 70%),
+    radial-gradient(55% 45% at 90% 10%, rgba(168, 85, 247, 0.2) 0%, transparent 70%),
+    radial-gradient(50% 40% at 50% 100%, rgba(255, 107, 107, 0.12) 0%, transparent 70%),
+    var(--spx-bg);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout ---------- */
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 56px) 16px 48px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.header__logo {
+  width: clamp(110px, 12vw, 160px);
+  height: auto;
+  margin-bottom: 18px;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  font-size: clamp(0.9rem, 2.4vw, 1.15rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.title {
+  margin: 0;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  background: var(--spx-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.title-bar {
+  width: 96px;
+  height: 4px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: var(--spx-gradient);
+}
+
+.game {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .game {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  background: var(--spx-surface);
+  border: 1px solid var(--spx-line);
+  border-radius: 26px;
+  padding: clamp(16px, 2.4vw, 28px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.card__label {
+  margin: 0 0 16px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--spx-muted);
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 16px;
+}
+
+.controls__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.85rem;
+  color: var(--spx-muted);
+}
+
+input[type="number"] {
+  width: 120px;
+  padding: 12px 16px;
+  font: 600 1rem 'Albert Sans', sans-serif;
+  color: var(--spx-text);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--spx-line);
+  border-radius: 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="number"]:focus {
+  border-color: var(--spx-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 194, 77, 0.18);
+}
+
+button {
+  padding: 13px 28px;
+  font: 700 0.95rem 'Albert Sans', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--spx-deep);
+  background: var(--spx-gradient);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -10px rgba(255, 107, 107, 0.6);
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 14px 36px -10px rgba(168, 85, 247, 0.65);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* ---------- Board ---------- */
+
+#container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  overflow-x: auto;
+}
+
+#container:empty::before {
+  content: "Pulsa “New game” para desplegar la flota";
+  display: block;
+  padding: 64px 16px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: var(--spx-muted);
+  text-align: center;
+}
+
 .board {
-    border-collapse: collapse;
-    background-color: #a7cbf0;
-    border-right: 3px solid black;
-    border-bottom: 3px solid black;
-    margin: 20px;
+  border-collapse: separate;
+  border-spacing: 3px;
+  margin: 0;
+}
+
+.cell,
+.guide,
+.empty {
+  position: relative;
+  width: var(--cell);
+  height: var(--cell);
+  min-width: var(--cell);
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 8px;
+}
+
+.guide,
+.empty {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: calc(var(--cell) * 0.42);
+  color: rgba(255, 255, 255, 0.58);
+  background: transparent;
 }
 
 .cell {
-    border-top: 3px solid black;
-    border-left: 3px solid black;
-    width: 50px;
-    height: 50px;
-    text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  cursor: crosshair;
+  transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
-.guide, .empty {
-    border-top: 3px solid black;
-    border-left: 3px solid black;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    background-color: #f0c2a7;
-    font-size: 26px;
-    font-weight: bold;
+
+.cell:hover {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 194, 77, 0.6);
+}
+
+/* Revealed boats */
+.showBoat {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 
 .showBoat.aircraft-carrier {
-    background-color: red;
+  background: var(--spx-purple);
 }
 
 .showBoat.battleship {
-    background-color:  #006400;
+  background: var(--spx-coral);
 }
 
 .showBoat.submarine {
-    background-color: yellow;
+  background: var(--spx-yellow);
 }
 
 .showBoat.cruiser {
-    background-color: blue;
+  background: var(--spx-pink);
 }
 
 .showBoat.destroyer {
-    background-color: orange;
+  background: var(--spx-orange);
+}
+
+/* Shot markers */
+.target::after,
+.hit::after,
+.miss::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .target {
-    background-image: url("../images/1331901174_bullet_red.png");
-    background-position: center;
-    background-repeat: no-repeat;
+  cursor: default;
+  background: rgba(255, 194, 77, 0.12);
 }
 
-.hit {
-    background-image: url("../images/1331900690_fire.png");
-    background-position: center;
-    background-repeat: no-repeat;
+.target::after {
+  width: 46%;
+  height: 46%;
+  border: 2px solid var(--spx-yellow);
+  box-shadow: 0 0 12px rgba(255, 194, 77, 0.7);
+  animation: spx-pulse 1.4s ease-in-out infinite;
 }
 
 .miss {
-    background-image: url("../images/1331900805_cross.png");
-    background-position: center;
-    background-repeat: no-repeat;
+  background: rgba(255, 255, 255, 0.03);
 }
 
-#endGameResult {
-  font-size: 24px;
+.miss::after {
+  width: 22%;
+  height: 22%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: none;
+  animation: none;
+}
+
+.hit {
+  background: rgba(255, 107, 107, 0.22);
+}
+
+.hit::after {
+  width: 58%;
+  height: 58%;
+  border: 0;
+  background: radial-gradient(circle, #fff 0%, var(--spx-yellow) 30%, var(--spx-coral) 62%, rgba(168, 85, 247, 0) 72%);
+  box-shadow: 0 0 16px rgba(255, 107, 107, 0.8);
+  animation: none;
+}
+
+.showBoat.hit::after {
+  background: radial-gradient(circle, #fff 0%, var(--spx-deep) 34%, rgba(14, 6, 30, 0) 70%);
+  box-shadow: none;
+}
+
+@keyframes spx-pulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .target::after { animation: none; }
+}
+
+/* ---------- Scoreboard ---------- */
+
+#info {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin: -10px 0;
+}
+
+#info td {
+  padding: 14px 16px;
+  background: var(--spx-surface-strong);
+  font-size: 0.9rem;
+  color: var(--spx-muted);
+}
+
+#info td:first-child {
+  border-radius: 16px 0 0 16px;
+}
+
+#info td:last-child {
+  border-radius: 0 16px 16px 0;
+  text-align: right;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.5rem;
+  color: var(--spx-text);
+  white-space: nowrap;
+}
+
+#info #funds {
+  color: var(--spx-yellow);
+}
+
+#info #endGameResult {
+  padding: 0;
+  background: transparent;
+  border-radius: 16px;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--spx-text);
+  white-space: normal;
+}
+
+#info #endGameResult:not(:empty) {
+  padding: 20px 16px;
+  background: linear-gradient(135deg, rgba(255, 194, 77, 0.18) 0%, rgba(255, 107, 107, 0.18) 50%, rgba(168, 85, 247, 0.18) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- Legend ---------- */
+
+.legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--spx-muted);
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.swatch.aircraft-carrier { background: var(--spx-purple); }
+.swatch.battleship { background: var(--spx-coral); }
+.swatch.submarine { background: var(--spx-yellow); }
+.swatch.cruiser { background: var(--spx-pink); }
+.swatch.destroyer { background: var(--spx-orange); }
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
 }

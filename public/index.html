@@ -1,6 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<title>Battleship</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Battleship · SimplexityLab</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600;700&family=Anton&family=Barlow:wght@400;500&family=Oswald:wght@200;300;400&display=swap">
 
 		<script type="text/javascript" src="javascripts/ext/underscore.js"></script>
 		<script type="text/javascript" src="javascripts/ext/jquery-1.7.1.js"></script>
@@ -25,31 +32,64 @@
 		</script>
 	</head>
 	<body>
-		<label for="shotsPerIteration">Shots per iteration: </label>
-		<input id="shotsPerIteration" type="number" min="1" max="40" value="40"/>
-		<button id="newGame">New game</button>
-		<br/>
+		<div class="page">
+			<header class="header">
+				<img class="header__logo" src="images/simplexitylab-logo.png" alt="SimplexityLab" width="160" height="78">
+				<p class="kicker">Agile Battleship</p>
+				<h1 class="title">Battleship</h1>
+				<div class="title-bar"></div>
+			</header>
 
-		<div id="container"></div>
-		<br/>
+			<main class="game">
+				<section class="card">
+					<div class="controls">
+						<div class="controls__field">
+							<label for="shotsPerIteration">Shots per iteration</label>
+							<input id="shotsPerIteration" type="number" min="1" max="40" value="40"/>
+						</div>
+						<button id="newGame">New game</button>
+					</div>
 
-		<table id="info">
-			<tr>
-				<td>Total shots remaining:</td>
-				<td id="totalShotsRemaining">&nbsp;</td>
-			</tr>
-			<tr>
-				<td>Shots remaining for iteration:</td>
-				<td id="shotsRemainingForIteration">&nbsp;</td>
-			</tr>
-			<tr>
-				<td>Balance:</td>
-				<td id="funds">&nbsp;</td>
-			</tr>
-			<tr>
-				<td id="endGameResult" colspan="2">&nbsp;</td>
-			</tr>
-		</table>
+					<div id="container"></div>
+				</section>
+
+				<aside class="sidebar">
+					<section class="card">
+						<p class="card__label">Scoreboard</p>
+						<table id="info">
+							<tr>
+								<td>Total shots remaining</td>
+								<td id="totalShotsRemaining">&ndash;</td>
+							</tr>
+							<tr>
+								<td>Shots remaining for iteration</td>
+								<td id="shotsRemainingForIteration">&ndash;</td>
+							</tr>
+							<tr>
+								<td>Balance</td>
+								<td id="funds">&ndash;</td>
+							</tr>
+							<tr>
+								<td id="endGameResult" colspan="2"></td>
+							</tr>
+						</table>
+					</section>
+
+					<section class="card">
+						<p class="card__label">Fleet</p>
+						<ul class="legend">
+							<li><span class="swatch aircraft-carrier"></span>Aircraft carrier (5)</li>
+							<li><span class="swatch battleship"></span>Battleship (4)</li>
+							<li><span class="swatch submarine"></span>Submarine (3)</li>
+							<li><span class="swatch cruiser"></span>Cruiser (3)</li>
+							<li><span class="swatch destroyer"></span>Destroyer (2)</li>
+						</ul>
+					</section>
+				</aside>
+			</main>
+
+			<footer class="footer">SimplexityLab</footer>
+		</div>
 	</body>
 
 	<script type="text/javascript">
